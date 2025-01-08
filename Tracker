@@ -1,0 +1,18 @@
+const express = require('express');
+const app = express();
+
+let expenses = [];
+
+app.use(express.json());
+
+app.post('/add-expense', (req, res) => {
+  const { description, amount } = req.body;
+  expenses.push({ description, amount });
+  res.status(201).send({ message: 'Expense added', expenses });
+});
+
+app.get('/expenses', (req, res) => {
+  res.send(expenses);
+});
+
+app.listen(3000, () => console.log('Server running on port 3000'));
